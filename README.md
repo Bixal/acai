@@ -33,7 +33,6 @@ api_key=070bdfe5-d106-40b0-a110-4882d8929669
 api_secret=VmFjaGVzIGJsZXVlcyBsZSBtYXRpbiwgY2jDqXJpZS4=
 cert_name=stage.another-app.com
 acquia_environment=prod
-
 ```
 
 * The INI section is only used by the acai.py app, and does not need to map to anything at Acquia or the site's hostname.
@@ -46,18 +45,21 @@ acquia_environment=prod
 
 * The `acquia_environment` is the name of the envirionment at Acquia, typically one of `dev`, `test`, `prod` or `ra`.
 
+* The `/etc/acai.conf` and `~/.acai.conf` files should have restrictive permissions.
 
 ## Usage
 
-With the environemnts defined, the certs can be installed with something like the following:
+With the environments defined, the certs can be installed by running:
 
 ```
 # acai.py my-app.dev
 ```
 
+It doesn't have to run as root.  It needs to be able to read the letsencrypt certs (typically owned by root) and the `/etc/acai.conf` file to fetch the Acquia API creds.
+
 This can be set up as a renewal hook triggered by certbot by editing the `/etc/letsencrypt/renew/[cert_name].conf` and adding a `renew_hook` to the `[renewalparams]` section.
 
 ```
 [renewalparams]
-renew_hook = acai my-app.dev
+renew_hook = /usr/bin/acai.py my-app.dev
 ```
