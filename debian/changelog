@@ -1,0 +1,6 @@
+acai (1.0) stable; urgency=medium
+
+  * Add a basic Debian package definition.
+  * Add acai.py, README.md and requirements.txt
+
+ -- John Franklin <john.franklin@bixal.com>  Thu, 28 Jan 2021 18:40:28 -0500

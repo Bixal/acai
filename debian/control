@@ -1,0 +1,14 @@
+Source: acai
+Section: web
+Priority: optional
+Maintainer: John Franklin <john.franklin@bixal.com>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.8
+Homepage: https://www.bixal.com
+
+Package: acai
+Architecture: all
+Recommends: certbot
+Depends: python3
+Description: Acquia Cert Automatic Install
+  A tool to install Certbot certificates in an Acquia environment.
