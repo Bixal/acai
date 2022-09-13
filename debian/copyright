@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Acai
+Upstream-Contact: John Franklin <john.franklin@bixal.com>
+Source: https://github.com/Bixal/acai
+
+Files: *
+Copyright: 2022, John Franklin <john.franklin@bixal.com>
+License: GPL-3
