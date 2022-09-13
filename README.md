@@ -8,7 +8,7 @@ This program installs LetsEncrypt SSL certificates into Acquia environments.
 This program requires Python 3.x and the [Python Acquia Cloud API v2](https://github.com/pmatias/python-acquia-cloud-2) library with the [SSL management patch](https://github.com/pmatias/python-acquia-cloud-2/pull/33) applied.
 
 ## Configuration
-The program looks in `/etc/acai.conf` and `~/.acai.conf` for environment definitions.  The config formats are in INI format.  Each environment is its own section in the config file, and the `DEFAULT` section provides values that are not overridden in a section.
+The program looks in `/etc/acai.conf` and `~/.acai.conf` for environment definitions.  The config files are in INI format.  Each environment is its own section in the config file, and the `DEFAULT` section provides global values that can be overridden in a section.
 
 Example:
 
@@ -35,7 +35,7 @@ cert_name=stage.another-app.com
 acquia_environment=prod
 ```
 
-* The INI section is only used by the acai.py app, and does not need to map to anything at Acquia or the site's hostname.
+* The INI section name (e.g., my-app.dev) is only used by the acai.py app, and does not need to map to anything at Acquia or the site's hostname.
 
 * The `api_key` and `api_secret` are generated in your Acquia account.  See the [Acquia documentation](https://docs.acquia.com/cloud-platform/develop/api/auth/) for details.
 
@@ -43,7 +43,7 @@ acquia_environment=prod
 
 * The `application` is the Application UUID.  You can find this by logging into Acquia Cloud and clicking "Product Keys" on the left.  It is also in the URL for your dashboard: `https://cloud.acquia.com/a/applications/[application-uuid]/`.
 
-* The `acquia_environment` is the name of the envirionment at Acquia, typically one of `dev`, `test`, `prod` or `ra`.
+* The `acquia_environment` is the name of the environment at Acquia, typically one of `dev`, `test`, `prod` or `ra`.
 
 * The `/etc/acai.conf` and `~/.acai.conf` files should have restrictive permissions.
 
