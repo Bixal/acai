@@ -1,0 +1,94 @@
+.TH acai.conf 5
+.SH NAME
+acai.conf
+.SH DESCRIPTION
+.BR acai (1)
+is given an environment name as its sole required argument and coorresponds to
+a section in the ini\-style config files defining which LetEncrypt cert to
+install in which Acquia environment.  The section name is used to select the
+parameters from the config and for no other purpose.  They do not have to match
+anything in the Acquia environment, although the section names are frequently
+composed as
+.I project-name.envionment
+to make it clear what these settings map to.
+.PP
+Values in the
+.I $HOME/.acai.conf
+override the same section and key in the system-wide
+.I /etc/acai.conf
+file.
+.PP
+A special section,
+.IR DEFAULT ,
+provides global values, unless overridden by another section.
+.PP
+There are five keys in each environment:
+.IP api_key
+The API key to access your Acquia account.
+.IP api_secret
+The secret that corresponds to the
+.I api_key.
+.IP cert_name
+The name of the LetsEncrypt certificate.  This will match a subdirectory of the
+.I /etc/letsencrypt/live
+directory.
+.IP application
+The application UUID for your Acquia project.  You can find this by logging into
+Acquia Cloud and clicking "Product Keys" on the left.
+.IP acquia_environment
+The name of the envirionment at Acquia, typically one of
+.BR dev ,
+.BR test ,
+.BR prod ,
+or
+.BR ra .
+.PP
+The
+.I api_key
+and
+.I api_secret
+are created in the Acquia Cloud portal.  See the
+.UR https://docs.acquia.com/cloud-platform/develop/api/auth/
+Acquia documentation
+.UE
+for more details.
+.SH EXAMPLE
+.PP
+.RS
+.EX
+.eo
+[DEFAULT]
+acquia_environment=prod
+api_key=a26a25ad-69fb-4348-a7ac-bdd0a60849af
+api_secret=TW9zdCBzZWN1cmUgcGFzc3dvcmQgaXMgPGVudGVyPi4=
+application=7eff4747-4733-4070-9002-353c1dcdd090
+
+[my-app.dev]
+cert_name=myapp.example.dev
+acquia_environment=dev
+
+[my-app.stage]
+cert_name=myapp.example.net
+acquia_environment=test
+
+[another-app.stg]
+application=7eff4747-4733-4070-9002-353c1dcdd090
+api_key=070bdfe5-d106-40b0-a110-4882d8929669
+api_secret=VmFjaGVzIGJsZXVlcyBsZSBtYXRpbiwgY2jDqXJpZS4=
+cert_name=stage.another-app.com
+acquia_environment=stage
+.ec
+.EE
+.RE
+.SH SECURITY
+Because the
+.BR acai.conf (5)
+files will have live credentials in them, the permissions on those files should
+be as restrictive as possible.
+.BR acai (1)
+does not check for restrictive permissions, rather it leaves it to the user to
+exercise good judgement.
+.SH "SEE ALSO"
+acai(1)
+.SH AUTHOR
+Written by John Franklin.

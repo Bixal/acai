@@ -1,0 +1,45 @@
+.TH ACAI 1 2021-07-31 Bixal Bixal Ops Guide
+.SH NAME
+acai \- Acquia Cert Automatic Installer
+.SH SYNOPSIS
+.B acai
+.B [-h] [-n] [-l | -b]
+.I environment
+.SH DESCRIPTION
+.BR acai (1)
+connects to Acquia's cloud platform to install a LetsEncrypt certificate to
+a specified Acquia environment.  The environments are defined in the ini\-style
+config files
+.I /etc/acai.conf
+or
+.I $HOME/.acai.conf.
+See
+.BR acai.conf (5)
+for more details on the config file.
+.PP
+This program can be used as a
+.B renew_hook
+in the LetsEncrypt renewal config file to automatically install a new SSL cert
+into an Acquia environment every time the cert is renewd.
+.SH OPTIONS
+.IP -h
+Display the help an exit.
+.IP -l
+Install as a legacy certificate.
+.IP -b
+Install as both a legacy and normal certificate.
+.IP -n
+Install, but don't activate the certificate.  (Normal certs only.)
+.SH EXIT STATUS
+Exits with status 0 on success, non-zero on failure.
+.SH FILES
+.TP
+/etc/acai.conf
+System-wide configuration file.
+.TP
+$HOME/.acai.conf
+Local-user configuration file.  Overrides entries in the system-wide config.
+.SH "SEE ALSO"
+certbot(1), letsencrypt(1), acai.conf(5)
+.SH AUTHOR
+Written by John Franklin.

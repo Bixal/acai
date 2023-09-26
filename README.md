@@ -8,7 +8,7 @@ This program installs LetsEncrypt SSL certificates into Acquia environments.
 This program requires Python 3.x and the [Python Acquia Cloud API v2](https://github.com/pmatias/python-acquia-cloud-2) library with the [SSL management patch](https://github.com/pmatias/python-acquia-cloud-2/pull/33) applied.
 
 ## Configuration
-The program looks in `/etc/acai.conf` and `~/.acai.conf` for environment definitions.  The config formats are in INI format.  Each environment is its own section in the config file, and the `DEFAULT` section provides values that are not overridden in a section.
+The program looks in `/etc/acai.conf` and `~/.acai.conf` for environment definitions.  The config files are in ini format.  Each environment has its own section in the config file, and the `DEFAULT` section provides values used if not overridden in an environment's section.
 
 Example:
 
@@ -35,7 +35,7 @@ cert_name=stage.another-app.com
 acquia_environment=prod
 ```
 
-* The INI section is only used by the acai.py app, and does not need to map to anything at Acquia or the site's hostname.
+* The ini section is only used by the acai.py app, and does not need to map to anything at Acquia or the site's hostname.
 
 * The `api_key` and `api_secret` are generated in your Acquia account.  See the [Acquia documentation](https://docs.acquia.com/cloud-platform/develop/api/auth/) for details.
 
@@ -49,13 +49,13 @@ acquia_environment=prod
 
 ## Usage
 
-With the environments defined, the certs can be installed by running:
+With the environments defined, the certs can be installed by running `acai.py` with the name of the environment's ini section to update.  For example, to update the `dev` environment in the `my-app` application, use:
 
 ```
 # acai.py my-app.dev
 ```
 
-It doesn't have to run as root.  It needs to be able to read the letsencrypt certs (typically owned by root) and the `/etc/acai.conf` file to fetch the Acquia API creds.
+The program doesn't have to run as root.  It only needs to be able to read the letsencrypt certs (typically owned by root) and the `/etc/acai.conf` file to fetch the Acquia API creds.
 
 This can be set up as a renewal hook triggered by certbot by editing the `/etc/letsencrypt/renew/[cert_name].conf` and adding a `renew_hook` to the `[renewalparams]` section.
 
