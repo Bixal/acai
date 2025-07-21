@@ -2,7 +2,7 @@ Source: acai
 Section: web
 Priority: optional
 Maintainer: John Franklin <john.franklin@bixal.com>
-Build-Depends: debhelper (>=9), dh-exec
+Build-Depends: debhelper-compat (=13), dh-exec
 Standards-Version: 3.9.8
 Homepage: https://github.com/Bixal/acai
 
