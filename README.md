@@ -49,13 +49,13 @@ acquia_environment=prod
 
 ## Usage
 
-With the environments defined, the certs can be installed by running:
+With the environments defined, the certs can be installed by running `acai.py` with the name of the environment's ini section to update.  For example, to update the `dev` environment in the `my-app` application, use:
 
 ```
 # acai.py my-app.dev
 ```
 
-It doesn't have to run as root.  It needs to be able to read the letsencrypt certs (typically owned by root) and the `/etc/acai.conf` file to fetch the Acquia API creds.
+The program doesn't have to run as root.  It only needs to be able to read the letsencrypt certs (typically owned by root) and the `/etc/acai.conf` file to fetch the Acquia API creds.
 
 This can be set up as a renewal hook triggered by certbot by editing the `/etc/letsencrypt/renew/[cert_name].conf` and adding a `renew_hook` to the `[renewalparams]` section.
 

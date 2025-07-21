@@ -26,9 +26,10 @@ positional arguments:
   environment   The server environment defined in the config file to update.
 
 optional arguments:
-  -h, --help    show this help message and exit
-  -l, --legacy  Install as a legacy certificate
-  -b, --both    Install as both a normal and a legacy certificate
+  -h, --help        show this help message and exit
+  -l, --legacy      install as a legacy certificate
+  -b, --both        install as both a normal and a legacy certificate
+  -n  --no-activate install, but don't activate the cert.
 """
 
 from acapi2 import *
@@ -45,14 +46,17 @@ config = configparser.ConfigParser()
 config.read(['/etc/acai.conf', os.path.expanduser('~/.acai.conf')]);
 
 parser = argparse.ArgumentParser()
-parser.add_argument('environment', help='The server environment to update defined in the config file.')
+parser.add_argument('environment', help='the server environment to update defined in the config file.')
+parser.add_argument('-n', '--no-activate', help="install, but don't activate the cert.", action="store_true")
 legacy_group = parser.add_mutually_exclusive_group()
-legacy_group.add_argument('-l', '--legacy', help='Install as a legacy certificate', action="store_true")
-legacy_group.add_argument('-b', '--both', help='Install as both a normal and a legacy certificate', action="store_true")
+legacy_group.add_argument('-l', '--legacy', help='install as a legacy certificate', action="store_true")
+legacy_group.add_argument('-b', '--both', help='install as both a normal and a legacy certificate', action="store_true")
 args = parser.parse_args()
 
 # Fetch the creds for connecting to the Acquia environment
 target = args.environment
+if target not in config.keys() and 'DEFAULT' not in config.keys():
+  sys.exit(f"ERROR: environment {target} not defined.")
 api_key = config[target].get('api_key')
 api_secret = config[target].get('api_secret')
 application_uuid = config[target].get('application')
@@ -129,7 +133,7 @@ except Exception as e:
 print("Done.")
 
 # Find and activate the cert.
-if not args.legacy:
+if not args.legacy and not args.no_activate:
   # Activate the cert first before deactivating any of them.  Otherwise, we
   # may have a window where there are no certs active.  Ignore legacy certs.
   for cert in env.get_ssl_certs():

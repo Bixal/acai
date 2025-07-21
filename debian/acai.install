@@ -1,1 +1,2 @@
-acai usr/bin
+#!/usr/bin/dh-exec
+acai/acai.py => /usr/bin/acai

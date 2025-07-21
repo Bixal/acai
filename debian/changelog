@@ -1,4 +1,11 @@
-acai (1.0) stable; urgency=medium
+acai (1.0-2) stable; urgency=medium
+
+  * Add manpages.
+  * Add no-activate option.
+
+ -- John Franklin <john.franklin@bixal.com>  Tue, 26 Sep 2023 00:23:52 -0400
+
+acai (1.0-1) stable; urgency=medium
 
   * Add a basic Debian package definition.
   * Add acai.py, README.md and requirements.txt
